@@ -958,7 +958,7 @@ section[id] { scroll-margin-top: 88px; }
 /* ---------- footer ---------- */
 .site-footer {
   border-top: 1px solid var(--line-soft);
-  padding: 46px 0 40px;
+  padding: 46px 0 72px;
   margin-top: 40px;
   background: linear-gradient(180deg, transparent, rgba(255,106,43,0.025));
 }

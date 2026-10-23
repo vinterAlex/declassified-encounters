@@ -82,7 +82,7 @@ A record looks like:
 
 To add a record, append it to the relevant array. No rebuild needed.
 
-> Asset URLs are versioned (`?v=10`) and served with `must-revalidate`. When you change `styles.css` or `app.js`, bump the `?v=` number in `index.html` so returning visitors don't get a cached copy.
+> Asset URLs are versioned (`?v=11`) and served with `must-revalidate`. When you change `styles.css` or `app.js`, bump the `?v=` number in `index.html` so returning visitors don't get a cached copy.
 
 ---
 
