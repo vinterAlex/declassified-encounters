@@ -1,8 +1,10 @@
 # Declassified Encounters
 
+### ▶ [Open the live site — declassified-encounters.vercel.app](https://declassified-encounters.vercel.app/)
+
 A searchable, provenance-checked index of government UFO / UAP archives.
 
-**Live goal:** one place where you can search declassified material from PURSUE, Project Blue Book, the FBI, CIA, NSA, the UK MoD, France's GEIPAN, Canada, Brazil, New Zealand, Australia and the Soviet KGB — and always see which kind of source you are actually reading.
+**Purpose:** one place where you can search declassified material from PURSUE, Project Blue Book, the FBI, CIA, NSA, the UK MoD, France's GEIPAN, Canada, Brazil, New Zealand, Australia and the Soviet KGB — and always see which kind of source you are actually reading.
 
 No build step. No framework. Static HTML, CSS and vanilla JS. Deploys to Vercel as-is.
 
@@ -121,6 +123,8 @@ The Hobby plan includes a limited monthly event allowance; check the current lim
 ---
 
 ## Deploy to Vercel
+
+The current public deployment is **[declassified-encounters.vercel.app](https://declassified-encounters.vercel.app/)**.
 
 1. Push this folder to GitHub (see below).
 2. Go to [vercel.com/new](https://vercel.com/new) → **Import Git Repository** → pick `declassified-encounters`.
