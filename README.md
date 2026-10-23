@@ -22,6 +22,7 @@ No build step. No framework. Static HTML, CSS and vanilla JS. Deploys to Vercel 
 - **Agencies glossary** — 25 acronyms decoded (CIA, NSA, NARA, DoW, CNES, FAB, KGB…) with links
 - **Myth check** — the Nixon "1960 treaty", the Greada Treaty, Valiant Thor and the Gleason story, with the archival test that debunks each
 - **PURSUE timeline** — all seven 2026 releases
+- **Where to go deeper** — five wider archives, with an explicit outbound-links-only policy
 
 The design is a dark ember palette with restrained cyberpunk accents (mono labels, thin grid, scanlines). No external UI libraries.
 
@@ -81,7 +82,7 @@ A record looks like:
 
 To add a record, append it to the relevant array. No rebuild needed.
 
-> Asset URLs are versioned (`?v=7`) and served with `must-revalidate`. When you change `styles.css` or `app.js`, bump the `?v=` number in `index.html` so returning visitors don't get a cached copy.
+> Asset URLs are versioned (`?v=8`) and served with `must-revalidate`. When you change `styles.css` or `app.js`, bump the `?v=` number in `index.html` so returning visitors don't get a cached copy.
 
 ---
 
@@ -161,6 +162,34 @@ Nothing in this index establishes non-human intelligence. "Unidentified" and "un
 ## Sources
 
 PURSUE (war.gov/UFO) · AARO · FBI Vault · CIA Reading Room · NSA FOIA · US National Archives (Project Blue Book, MJ-12 reference report) · The National Archives (UK) · CNES/GEIPAN · Library and Archives Canada · Arquivo Nacional (Brazil) · New Zealand Defence Force · National Archives of Australia · University of Colorado (Condon Report) · US Air Force (Roswell Reports) · Brookings Institution / NASA · KGB "Blue Folder" (1991).
+
+---
+
+## Related projects
+
+This index is deliberately narrow — 45 records, checked by hand. The sites below go wider. They are
+listed for navigation, not endorsement: none is affiliated with this project, none paid to be listed,
+and their content, accuracy and licences are their own.
+
+| Project | What it is | Notes |
+|---|---|---|
+| [uap-files.org](https://www.uap-files.org/) | Full-text mirror of the PURSUE releases — 188 PDFs, 7,798 OCR pages, 103 videos | CC0 data dump, `/api.json`, RSS and `/llms-full.txt` |
+| [uap-archives.com](https://uap-archives.com/) | The widest record set — 11,548 files, 1,836 locations, 1944–2026 | Free to read; sells $3–25/mo membership tiers |
+| [uap-archive.org](https://uap-archive.org/uap/) | Official-source pointers only, same "pointer, not authority" approach | 87 link records; published method, source policy, corrections; CC BY 4.0 dataset with DOI |
+| [Co-Messi/uap-pursue](https://github.com/Co-Messi/uap-pursue) | Bulk mirror of PURSUE releases 01–04 — 178 PDFs, 21 photos, 89 videos | Public-domain material, files on disk |
+| [war.gov/UFO](https://www.war.gov/UFO/) | The PURSUE portal itself | Primary source; authoritative release notes and file inventory |
+
+Deliberately left out: sites I could not confirm are maintained, and sites that republish material
+without a licence.
+
+### Linking policy
+
+This repository contains **outbound links only**. No third-party documents, text, images or datasets
+are copied, mirrored, embedded or rehosted here — each entry points at a site exactly as its operator
+publishes it. Site names and trademarks belong to their owners and are used only to identify them;
+listing is not affiliation, sponsorship or endorsement, and is not a claim about a site's accuracy.
+Access and licence status were checked on 24 October 2026 and can change without notice — verify with
+the source before republishing anything.
 
 ---
 
