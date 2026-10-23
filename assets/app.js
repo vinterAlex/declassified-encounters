@@ -272,6 +272,8 @@
       STORAGE.byRecord?.[item.id] ||
       (item.collection ? STORAGE.byRecord?.[item.collection] : null) || { size: "—", note: "" };
     const agencyFull = AGENCY_INFO[item.agency]?.name || item.agency || "—";
+    const isDownload = /pdf|zip|scan/i.test(item.format || "");
+    const sourceAction = isDownload ? "Download / open file" : "Open source page";
 
     drawerBody.innerHTML = `
       <div class="drawer-section">
@@ -304,8 +306,8 @@
           <div class="src-org">${esc(item.org)}${item.release ? " · " + esc(item.release) : ""}</div>
         </div>
         <div class="drawer-actions">
-          <button class="btn primary" type="button" id="copyLink">Copy record link</button>
-          <a class="btn" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">Open source ↗</a>
+          <a class="btn primary" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${sourceAction} ↗</a>
+          <button class="btn" type="button" id="copyLink">Copy record link</button>
         </div>
       </div>
 
@@ -522,16 +524,24 @@
       )
       .join("");
 
+    const dlIcon = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 1.8v8.4M4.4 6.9L8 10.5l3.6-3.6M2.8 13.4h10.4"/></svg>`;
+
     const rows = dl
       .map(
         (d) => `
         <div class="dl-row">
           <span class="dl-rel">${esc(d.release)}</span>
           <span class="dl-what"><b>${esc(d.date)}</b><i>${esc(d.note)}</i></span>
-          <span class="dl-size"><a href="${esc(d.docsUrl)}" target="_blank" rel="noopener">${esc(d.docs)} <span aria-hidden="true">↓</span></a></span>
+          <span class="dl-size">
+            <a class="dl-btn" href="${esc(d.docsUrl)}" target="_blank" rel="noopener" aria-label="Download Release ${esc(d.release)} documents, ${esc(d.docs)}">
+              ${dlIcon}<span>${esc(d.docs)}</span>
+            </a>
+          </span>
           <span class="dl-size">${
             d.videos && d.videos !== "—"
-              ? `<a href="${esc(d.videosUrl)}" target="_blank" rel="noopener">${esc(d.videos)} <span aria-hidden="true">↓</span></a>`
+              ? `<a class="dl-btn" href="${esc(d.videosUrl)}" target="_blank" rel="noopener" aria-label="Download Release ${esc(d.release)} video, ${esc(d.videos)}">
+                   ${dlIcon}<span>${esc(d.videos)}</span>
+                 </a>`
               : `<span class="dl-none">no video</span>`
           }</span>
         </div>`
