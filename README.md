@@ -15,7 +15,9 @@ No build step. No framework. Static HTML, CSS and vanilla JS. Deploys to Vercel 
 - **Facets** — category, agency, era, document type, provenance
 - **Two views** — dense table (archive style) or cards
 - **Provenance badges** — official government / institutional / mirror / no primary document
-- **Record drawer** — summary, what's inside, why it matters, caution note, direct source link, copyable permalink
+- **Record drawer** — summary, what's inside, why it matters, caution note, storage estimate, direct source link, copyable permalink
+- **Sources & storage** — direct PURSUE bundle links with real sizes, plus fetch commands and disk budgeting
+- **Agencies glossary** — 25 acronyms decoded (CIA, NSA, NARA, DoW, CNES, FAB, KGB…) with links
 - **Myth check** — the Nixon "1960 treaty", the Greada Treaty, Valiant Thor and the Gleason story, with the archival test that debunks each
 - **PURSUE timeline** — all seven 2026 releases
 
@@ -79,9 +81,11 @@ To add a record, append it to the relevant array. No rebuild needed.
 
 ---
 
-## Run locally
+## Viewing it on your own machine
 
-Because the data is plain `<script>` files, you can just open `index.html` — but a local server is cleaner:
+The site is fully static and loads its data through plain `<script>` tags, not `fetch`, so **you can just double-click `index.html`** and it works offline. No Node, no npm, no build step.
+
+If you prefer a local server (recommended if you plan to edit files):
 
 ```bash
 npx serve .
@@ -90,6 +94,29 @@ python -m http.server 8080
 ```
 
 Then open `http://localhost:3000` (or `:8080`).
+
+> Note: Vercel Analytics is skipped on `localhost` and `file://`, so local previews produce no network calls or errors.
+
+---
+
+## Vercel Web Analytics
+
+This is a static site, so it uses the **script-tag** version of Vercel Analytics — not the Next.js `@vercel/analytics` React component shown in the dashboard's default instructions.
+
+The tag is already in `index.html`:
+
+```html
+<script defer src="/_vercel/insights/script.js"></script>
+```
+
+It is injected only when the site is served from a real host (not localhost/file). To start counting:
+
+1. Open the project in Vercel → **Analytics** tab.
+2. Click **Enable** (Web Analytics).
+3. Redeploy if the tab asks for it.
+4. Visit the site, then check **Visitors / Page Views** in the dashboard.
+
+The Hobby plan includes a limited monthly event allowance; check the current limit in the dashboard before relying on it.
 
 ---
 

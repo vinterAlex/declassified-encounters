@@ -36,6 +36,8 @@
 
     <nav class="header-nav" aria-label="Sections">
       <a href="#library">Library</a>
+      <a href="#downloads">Sources</a>
+      <a href="#agencies">Agencies</a>
       <a href="#myths">Myth check</a>
       <a href="#timeline">Timeline</a>
       <a href="#provenance">Provenance</a>
@@ -65,7 +67,7 @@
         <span><b>478</b> files in the 2026 PURSUE releases</span>
         <span><b>12,618</b> Blue Book sightings</span>
         <span><b>701</b> still unidentified</span>
-        <span><b>8</b> national programmes indexed</span>
+        <span><b>≈19.8 GB</b> full PURSUE download</span>
       </div>
 
       <div class="stats" id="stats"></div>
@@ -276,6 +278,82 @@
     </div>
   </section>
 
+  <!-- ============ SOURCES & STORAGE ============ -->
+  <section class="section" id="downloads">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-kicker">Sources &amp; storage</div>
+        <h2>Everything indexed, and what it costs to keep.</h2>
+        <p class="lede">
+          The sizes below are the labels published by the issuing agencies. PURSUE is the only programme that
+          ships bulk ZIP bundles; the rest are archives you download file by file. If you want a local mirror,
+          budget for the documents first — the video is what makes it expensive.
+        </p>
+      </div>
+
+      <div class="storage-cards reveal" id="storageCards"></div>
+
+      <div class="dl-wrap reveal">
+        <div class="dl-title-row">
+          <h3>PURSUE bundles — direct downloads</h3>
+          <a class="btn" href="https://www.war.gov/UFO/" target="_blank" rel="noopener">Open war.gov/UFO ↗</a>
+        </div>
+        <div id="dlTable" class="dl-table"></div>
+        <p class="dl-note">
+          Sizes are decimal (1 GB = 1,000 MB) and copied from the official download buttons.
+          ZIPs expand by roughly 10–25% when extracted, so a 19.8 GB download needs about
+          <b>25 GB free</b>. Video dominates: documents alone are only ~5 GB.
+        </p>
+      </div>
+
+      <div class="fetch-grid reveal">
+        <div class="fetch-box">
+          <h4>One release</h4>
+          <pre><code>curl -L -O \
+  "https://www.war.gov/medialink/ufo/release-07/\
+documents_release_07_oct_23_2026.zip"</code></pre>
+          <p>Start with R07 (325 MB). It is the smallest full tranche.</p>
+        </div>
+        <div class="fetch-box">
+          <h4>Resumable / parallel</h4>
+          <pre><code>aria2c -x 8 -s 8 -c \
+  -d pursue \
+  "https://www.war.gov/medialink/ufo/..."</code></pre>
+          <p><code>-c</code> resumes after a dropped connection. Large .gov downloads do drop.</p>
+        </div>
+        <div class="fetch-box">
+          <h4>Check before committing</h4>
+          <pre><code>unzip -l bundle.zip | head -40
+df -h .
+du -sh pursue/</code></pre>
+          <p>List the archive first. Some bundles are mostly repeated reference papers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AGENCIES ============ -->
+  <section class="section" id="agencies">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-kicker">Who's who in the paperwork</div>
+        <h2>The acronyms, decoded.</h2>
+        <p class="lede">
+          CIA, NSA, NARA, DoW, CNES, FAB — every code in the filter menu, what the agency actually does,
+          and why it appears in this index. Hover a record's agency column or open its drawer to see the same mapping.
+        </p>
+      </div>
+
+      <div class="agency-grid reveal" id="agencyGrid"></div>
+
+      <p class="agency-note reveal">
+        Not every acronym is a spy agency. <b>NARA</b> and <b>TNA</b> are archives, <b>CNES</b> is a space agency,
+        <b>FAB</b> and <b>NZDF</b> are military services, and <b>NCAS</b> is an independent sceptics group that
+        reproduced a government report. The badge on each record tells you which kind of source you are reading.
+      </p>
+    </div>
+  </section>
+
   <!-- ============ PROVENANCE ============ -->
   <section class="section" id="provenance">
     <div class="wrap">
@@ -356,6 +434,20 @@
 
 <script src="data/collections.js"></script>
 <script src="data/documents.js"></script>
+<script src="data/reference.js"></script>
 <script src="assets/app.js"></script>
+
+<!-- Vercel Web Analytics — enable it in Project → Analytics → Enable.
+     Skipped on localhost and file:// so local previews stay clean. -->
+<script>
+  (function () {
+    if (location.protocol === "file:") return;
+    if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(location.hostname)) return;
+    var s = document.createElement("script");
+    s.defer = true;
+    s.src = "/_vercel/insights/script.js";
+    document.head.appendChild(s);
+  })();
+</script>
 </body>
 </html>

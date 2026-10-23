@@ -53,6 +53,11 @@
     myth: "No document",
   };
 
+  const AGENCY_INFO = Object.fromEntries(
+    (window.DE_AGENCIES || []).map((a) => [a.code, a])
+  );
+  const STORAGE = window.DE_STORAGE || { byRecord: {}, totals: {} };
+
   const SORTS = {
     relevance: (a, b) => a._i - b._i,
     "year-desc": (a, b) => b.yearStart - a.yearStart,
@@ -158,7 +163,11 @@
     });
 
     const agencySel = $("#agency");
-    agencies.forEach((a) => agencySel.insertAdjacentHTML("beforeend", `<option value="${esc(a)}">${esc(a)}</option>`));
+    agencies.forEach((a) => {
+      const info = AGENCY_INFO[a];
+      const label = info ? `${a} — ${info.name}` : a;
+      agencySel.insertAdjacentHTML("beforeend", `<option value="${esc(a)}">${esc(label)}</option>`);
+    });
 
     const typeSel = $("#type");
     types.forEach((t) => typeSel.insertAdjacentHTML("beforeend", `<option value="${esc(t)}">${esc(t)}</option>`));
@@ -209,7 +218,7 @@
           <span class="r-title">${esc(item.title)}</span>
           <span class="r-sum">${esc(item.summary)}</span>
         </span>
-        <span class="r-agency">${esc(item.agency || "—")}</span>
+        <span class="r-agency" title="${esc(AGENCY_INFO[item.agency]?.name || item.agency || "")}">${esc(item.agency || "—")}</span>
         <span class="r-date">${esc(item.dateLabel || item.year || "—")}</span>
         <span class="r-loc">${esc(item.location || "—")}</span>
         <span class="r-format">${esc(item.format || item.type || "—")}</span>
@@ -259,6 +268,10 @@
 
     const inside = (item.inside || []).map((x) => `<li>${esc(x)}</li>`).join("");
     const tags = (item.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("");
+    const st =
+      STORAGE.byRecord?.[item.id] ||
+      (item.collection ? STORAGE.byRecord?.[item.collection] : null) || { size: "—", note: "" };
+    const agencyFull = AGENCY_INFO[item.agency]?.name || item.agency || "—";
 
     drawerBody.innerHTML = `
       <div class="drawer-section">
@@ -271,6 +284,17 @@
       ${item.why ? `<div class="drawer-section"><h4>Why it matters</h4><p>${esc(item.why)}</p></div>` : ""}
 
       ${item.caution ? `<div class="drawer-section"><h4>Read with care</h4><div class="caution-box"><b>Provenance note</b>${esc(item.caution)}</div></div>` : ""}
+
+      <div class="drawer-section">
+        <h4>Record details</h4>
+        <div class="meta-grid">
+          <div><span>Agency</span><b>${esc(agencyFull)}</b></div>
+          <div><span>Format</span><b>${esc(item.format || item.type || "—")}</b></div>
+          <div><span>Storage</span><b>${esc(st.size)}${st.kind === "est" ? " est." : ""}</b></div>
+          <div><span>Release</span><b>${esc(item.release || "—")}</b></div>
+        </div>
+        ${st.note ? `<div class="storage-note">${esc(st.note)}</div>` : ""}
+      </div>
 
       <div class="drawer-section">
         <h4>Primary source</h4>
@@ -468,6 +492,93 @@
     els.forEach((el) => io.observe(el));
   }
 
+  /* ---------- sources, storage, agencies ---------- */
+  const parseMb = (s) => {
+    if (!s || s === "—") return 0;
+    const m = String(s).match(/([\d.]+)\s*(GB|MB)/i);
+    if (!m) return 0;
+    return m[2].toUpperCase() === "GB" ? parseFloat(m[1]) * 1000 : parseFloat(m[1]);
+  };
+  const fmtGb = (mb) => (mb / 1000).toFixed(1) + " GB";
+
+  function renderDownloads() {
+    const dl = window.DE_DOWNLOADS || [];
+    if (!dl.length) return;
+
+    const docsMb = dl.reduce((n, d) => n + parseMb(d.docs), 0);
+    const videoMb = dl.reduce((n, d) => n + parseMb(d.videos), 0);
+    const totalMb = docsMb + videoMb;
+    const allLabel = STORAGE.totals?.allLabel || "~45–55 GB";
+
+    const cards = [
+      { value: fmtGb(docsMb), label: "Documents", sub: `${dl.length} bundles` },
+      { value: fmtGb(videoMb), label: "Video", sub: "6 releases" },
+      { value: fmtGb(totalMb), label: "PURSUE total", sub: "≈25 GB extracted" },
+      { value: allLabel, label: "Everything indexed", sub: "estimate, incl. video" },
+    ];
+    $("#storageCards").innerHTML = cards
+      .map(
+        (c) => `<div class="storage-card"><b>${esc(c.value)}</b><small>${esc(c.label)}</small><i>${esc(c.sub)}</i></div>`
+      )
+      .join("");
+
+    const rows = dl
+      .map(
+        (d) => `
+        <div class="dl-row">
+          <span class="dl-rel">${esc(d.release)}</span>
+          <span class="dl-what"><b>${esc(d.date)}</b><i>${esc(d.note)}</i></span>
+          <span class="dl-size"><a href="${esc(d.docsUrl)}" target="_blank" rel="noopener">${esc(d.docs)} <span aria-hidden="true">↓</span></a></span>
+          <span class="dl-size">${
+            d.videos && d.videos !== "—"
+              ? `<a href="${esc(d.videosUrl)}" target="_blank" rel="noopener">${esc(d.videos)} <span aria-hidden="true">↓</span></a>`
+              : `<span class="dl-none">no video</span>`
+          }</span>
+        </div>`
+      )
+      .join("");
+
+    $("#dlTable").innerHTML = `
+      <div class="dl-row dl-head">
+        <span>Release</span><span>Date / content</span><span>Documents</span><span>Video</span>
+      </div>
+      ${rows}
+      <div class="dl-row dl-total">
+        <span>Total</span>
+        <span class="dl-what"><b>478 files</b><i>7 document bundles · 6 video bundles</i></span>
+        <span class="dl-size">${fmtGb(docsMb)}</span>
+        <span class="dl-size">${fmtGb(videoMb)}</span>
+      </div>`;
+  }
+
+  function renderAgencies() {
+    const list = window.DE_AGENCIES || [];
+    if (!list.length) return;
+    $("#agencyGrid").innerHTML = list
+      .map((a) => {
+        let host = "";
+        try {
+          host = new URL(a.url).hostname.replace(/^www\./, "");
+        } catch {
+          host = "link";
+        }
+        return `
+        <article class="agency-card">
+          <div class="agency-top">
+            <span class="agency-code">${esc(a.code)}</span>
+            <span class="agency-country">${esc(a.country)}</span>
+          </div>
+          <h3>${esc(a.name)}</h3>
+          <p>${esc(a.blurb)}</p>
+          <div class="agency-foot">
+            <span class="agency-kind">${esc(a.kind)}</span>
+            <a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(host)} ↗</a>
+          </div>
+        </article>`;
+      })
+      .join("");
+  }
+
   /* ---------- jump to search ---------- */
   const jumpBtn = $("#jumpSearch");
   let jumpTicking = false;
@@ -500,6 +611,8 @@
 
   buildFacets();
   renderStats();
+  renderDownloads();
+  renderAgencies();
   render();
   initReveal();
 
