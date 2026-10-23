@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Declassified Encounters — Government UFO / UAP Archive Index</title>
+<meta name="description" content="A searchable, provenance-checked index of declassified government UFO/UAP archives: PURSUE, Project Blue Book, FBI, CIA, NSA, MoD, GEIPAN and more." />
+<meta name="theme-color" content="#090705" />
+
+<meta property="og:title" content="Declassified Encounters" />
+<meta property="og:description" content="A searchable index of government UFO/UAP archives — with provenance badges so you can tell a primary source from a mirror from a myth." />
+<meta property="og:type" content="website" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0a07'/%3E%3Cpath d='M16 7l7 18H9z' fill='none' stroke='%23ff6a2b' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ffb066'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Declassified Encounters home">
+      <span class="brand-mark">DE</span>
+      <span class="brand-text">
+        <b>Declassified Encounters</b>
+        <span>Archive index / v1.0</span>
+      </span>
+    </a>
+
+    <nav class="header-nav" aria-label="Sections">
+      <a href="#library">Library</a>
+      <a href="#myths">Myth check</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#provenance">Provenance</a>
+    </nav>
+
+    <span class="status-dot"><i></i> Updated 23 Oct 2026</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Primary sources only</div>
+
+      <h1>The government <em>did</em> keep files. This is where they are.</h1>
+
+      <p class="hero-lede">
+        A searchable index of UFO and UAP material released by governments and public institutions —
+        <strong>PURSUE</strong>, Project Blue Book, the FBI, CIA, NSA, the UK MoD, France's GEIPAN and more.
+        Every entry carries a provenance badge, so you can tell an official release from a mirror from a myth
+        before you spend an hour reading it.
+      </p>
+
+      <div class="hero-meta">
+        <span><b>478</b> files in the 2026 PURSUE releases</span>
+        <span><b>12,618</b> Blue Book sightings</span>
+        <span><b>701</b> still unidentified</span>
+        <span><b>8</b> national programmes indexed</span>
+      </div>
+
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <!-- ============ SEARCH / FILTERS ============ -->
+  <section class="search-section" id="library">
+    <div class="wrap">
+      <div class="search-shell">
+        <div class="search-row">
+          <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path>
+            </svg>
+            <input id="search" type="search" placeholder="Search 45 records — try “Roswell”, “CIA”, “1953”, “treaty”, “radar”…" autocomplete="off" spellcheck="false" aria-label="Search the archive index" />
+            <span class="kbd-hint"><kbd>Ctrl</kbd><kbd>K</kbd></span>
+          </div>
+          <button class="btn-reset" id="reset" type="button">Reset</button>
+        </div>
+
+        <div class="filters" id="filters">
+          <div class="chip-group">
+            <span class="filter-label">Category</span>
+            <button class="chip" data-filter="category" data-value="all" aria-pressed="true">All</button>
+            <button class="chip" data-filter="category" data-value="us-federal" aria-pressed="false">US federal</button>
+            <button class="chip" data-filter="category" data-value="intelligence" aria-pressed="false">Intelligence</button>
+            <button class="chip" data-filter="category" data-value="international" aria-pressed="false">International</button>
+            <button class="chip" data-filter="category" data-value="scientific" aria-pressed="false">Scientific</button>
+            <button class="chip" data-filter="category" data-value="myth" aria-pressed="false">Myths</button>
+          </div>
+
+          <div class="facet-group">
+            <label class="sr-only" for="agency">Agency</label>
+            <select id="agency" class="facet">
+              <option value="all">All agencies</option>
+            </select>
+
+            <label class="sr-only" for="decade">Era</label>
+            <select id="decade" class="facet">
+              <option value="all">All eras</option>
+            </select>
+
+            <label class="sr-only" for="type">Type</label>
+            <select id="type" class="facet">
+              <option value="all">All types</option>
+            </select>
+
+            <label class="sr-only" for="badge">Provenance</label>
+            <select id="badge" class="facet">
+              <option value="all">Any provenance</option>
+              <option value="gov">Official government</option>
+              <option value="institution">Institutional</option>
+              <option value="mirror">Mirror / partial</option>
+              <option value="myth">No primary document</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="results-wrap">
+    <div class="wrap">
+      <div class="library-bar">
+        <div class="tabs" role="tablist" aria-label="Record type">
+          <button class="tab" role="tab" data-kind="all" aria-selected="true">Everything <span class="tab-n" data-count="all"></span></button>
+          <button class="tab" role="tab" data-kind="collection" aria-selected="false">Collections <span class="tab-n" data-count="collection"></span></button>
+          <button class="tab" role="tab" data-kind="document" aria-selected="false">Documents <span class="tab-n" data-count="document"></span></button>
+          <button class="tab" role="tab" data-kind="myth" aria-selected="false">Myths <span class="tab-n" data-count="myth"></span></button>
+        </div>
+
+        <div class="bar-right">
+          <span class="results-count"><b id="resultCount">0</b> records</span>
+          <label class="sr-only" for="sort">Sort</label>
+          <select id="sort" class="facet">
+            <option value="relevance">Best match</option>
+            <option value="year-desc">Newest first</option>
+            <option value="year-asc">Oldest first</option>
+            <option value="title">A – Z</option>
+          </select>
+          <div class="view-toggle" role="group" aria-label="View">
+            <button type="button" class="view-btn" data-view="table" aria-pressed="true" title="Table view">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="3" width="14" height="2" rx=".5"/><rect x="1" y="7" width="14" height="2" rx=".5"/><rect x="1" y="11" width="14" height="2" rx=".5"/></svg>
+            </button>
+            <button type="button" class="view-btn" data-view="grid" aria-pressed="false" title="Card view">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-head" id="colHead" aria-hidden="true">
+        <span>Source</span><span>Record</span><span>Agency</span><span>Date</span><span>Location</span><span>Format</span><span></span>
+      </div>
+
+      <div id="results" class="view-table" aria-live="polite"></div>
+
+      <div class="load-note" id="loadNote" hidden>
+        <span id="loadText"></span>
+        <button class="btn" id="loadMore" type="button">Load more</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MYTH CHECK ============ -->
+  <section class="section" id="myths">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-kicker">The Nixon file</div>
+        <h2>There is no 1960 treaty. There is a paper trail of where the story came from.</h2>
+        <p class="lede">
+          The most durable claim in UFO culture is that Nixon signed an agreement with aliens around 1960.
+          No treaty text, signing photograph, Senate record, NSC memorandum or presidential library document exists.
+          What exists is three unrelated legends that merged in the 1980s and 1990s.
+        </p>
+      </div>
+
+      <div class="myth-grid">
+        <div class="panel danger reveal">
+          <span class="verdict"><i style="width:5px;height:5px;border-radius:50%;background:var(--danger);box-shadow:0 0 8px var(--danger)"></i> No primary document</span>
+          <h3>The three claims, and their first appearance</h3>
+          <ul class="claim-list">
+            <li class="claim">
+              <span class="when">1954<br />Greada Treaty</span>
+              <span class="what"><b>Eisenhower signs a pact with greys</b><span>First appears in William Cooper's 1989 lectures — 35 years after the alleged signing. No text, no venue, no witnesses.</span></span>
+            </li>
+            <li class="claim">
+              <span class="when">1957–1960<br />Valiant Thor</span>
+              <span class="what"><b>A Venusian lives at the Pentagon and meets Nixon</b><span>From Frank Stranges' self-published 1967 book <em>Stranger at the Pentagon</em>. No Pentagon, Secret Service or personnel record.</span></span>
+            </li>
+            <li class="claim">
+              <span class="when">1973<br />Jackie Gleason</span>
+              <span class="what"><b>Nixon shows Gleason alien bodies in Florida</b><span>A single-source anecdote from Gleason's ex-wife, told years after their divorce. No White House or military log.</span></span>
+            </li>
+          </ul>
+          <p style="margin-top:16px;font-size:12.5px;color:var(--faint)">
+            The “1960” date comes from the Valiant Thor timeline, not from any agreement.
+          </p>
+        </div>
+
+        <div class="panel reveal">
+          <h3>How to test it in five minutes</h3>
+          <ul class="checks">
+            <li>Ask for the record group and box number. There isn't one.</li>
+            <li>Search the Nixon, Eisenhower and Truman library catalogues. Nothing.</li>
+            <li>Check the NSC meeting minutes for the alleged date. No meeting.</li>
+            <li>Read NARA's MJ-12 forensics: wrong paper, wrong watermark, wrong filing number.</li>
+            <li>Notice that every version names a different date, location and species.</li>
+          </ul>
+          <div class="source-box" style="margin-top:18px">
+            <div class="src-label">Closest thing to an official verdict</div>
+            <a href="https://www.archives.gov/research/military/air-force/ufos" target="_blank" rel="noopener">archives.gov — MJ-12 reference report ↗</a>
+            <div class="src-org">US National Archives and Records Administration</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIMELINE ============ -->
+  <section class="section" id="timeline">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-kicker">2026 release cycle</div>
+        <h2>PURSUE, tranche by tranche</h2>
+        <p class="lede">Seven releases in six months. This is the fastest-moving declassification programme in the subject's history.</p>
+      </div>
+
+      <div class="timeline reveal">
+        <a class="tl-row" href="https://www.war.gov/News/Releases/Release/Article/4480582/department-of-war-releases-unidentified-anomalous-phenomena-files-in-historic-t/" target="_blank" rel="noopener">
+          <span class="tl-date">08 MAY 2026</span>
+          <span class="tl-what"><b>Release 01</b> — historical baseline across agencies</span>
+          <span class="tl-files">158 files</span>
+        </a>
+        <a class="tl-row" href="https://www.war.gov/UFO/?releaseDate=Release+02" target="_blank" rel="noopener">
+          <span class="tl-date">22 MAY 2026</span>
+          <span class="tl-what"><b>Release 02</b> — Sandia Base dossier, 209 reports, 1948–1950</span>
+          <span class="tl-files">64 files</span>
+        </a>
+        <a class="tl-row" href="https://www.war.gov/News/Releases/Release/Article/4515408/department-of-war-publishes-third-release-of-unidentified-anomalous-phenomena-f/" target="_blank" rel="noopener">
+          <span class="tl-date">12 JUN 2026</span>
+          <span class="tl-what"><b>Release 03</b> — CIA and FBI orbs, Harare airport case</span>
+          <span class="tl-files">72 files</span>
+        </a>
+        <a class="tl-row" href="https://www.war.gov/News/Releases/Release/Article/4539898/department-of-war-publishes-fourth-release-of-unidentified-anomalous-phenomena/" target="_blank" rel="noopener">
+          <span class="tl-date">10 JUL 2026</span>
+          <span class="tl-what"><b>Release 04</b> — first-person military accounts, 19 videos</span>
+          <span class="tl-files">40 files</span>
+        </a>
+        <a class="tl-row" href="https://www.war.gov/News/Releases/Release/Article/4565994/department-of-war-publishes-fifth-release-of-unidentified-anomalous-phenomena-f/" target="_blank" rel="noopener">
+          <span class="tl-date">07 AUG 2026</span>
+          <span class="tl-what"><b>Release 05</b> — Gulf of Oman orbs, Bagram triangle FD-302</span>
+          <span class="tl-files">41 files</span>
+        </a>
+        <a class="tl-row" href="https://www.war.gov/News/Releases/Release/Article/4604795/department-of-war-publishes-sixth-release-of-unidentified-anomalous-phenomena-f/" target="_blank" rel="noopener">
+          <span class="tl-date">18 SEP 2026</span>
+          <span class="tl-what"><b>Release 06</b> — AAWSAP papers, 1952 Tremonton film, Ruppelt recording</span>
+          <span class="tl-files">75 files</span>
+        </a>
+        <a class="tl-row" href="https://www.war.gov/News/Releases/Release/Article/4632058/department-of-war-publishes-seventh-release-of-unidentified-anomalous-phenomena/" target="_blank" rel="noopener">
+          <span class="tl-date">23 OCT 2026</span>
+          <span class="tl-what"><b>Release 07</b> — Catalina Island 1949–55, Utah Ranch 2010, AARO triangle memo</span>
+          <span class="tl-files">8 files</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROVENANCE ============ -->
+  <section class="section" id="provenance">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-kicker">Read the badge before the headline</div>
+        <h2>Four levels of trust</h2>
+        <p class="lede">
+          “Declassified” does not mean “true”, and a scan on a blog is not a government release.
+          Every record is tagged with one of these.
+        </p>
+      </div>
+
+      <div class="legend reveal">
+        <div class="legend-card">
+          <span class="badge gov"><i></i> Official government</span>
+          <p><b>Hosted by the issuing agency.</b> A .gov, .mil or national archive domain. The document is in official custody. It still only proves the document exists.</p>
+        </div>
+        <div class="legend-card">
+          <span class="badge institution"><i></i> Institutional</span>
+          <p><b>Released by a public institution.</b> A space agency, national archive or university reproduction of an official report. Reliable custody, not necessarily a government portal.</p>
+        </div>
+        <div class="legend-card">
+          <span class="badge mirror"><i></i> Mirror / partial</span>
+          <p><b>Real material, imperfect chain of custody.</b> A release mirrored on the Internet Archive, or a partial activist scan. Usable, but cite the original series reference.</p>
+        </div>
+        <div class="legend-card">
+          <span class="badge myth"><i></i> No primary document</span>
+          <p><b>A claim, not a record.</b> Included so you can see the myth next to the evidence that contradicts it. Never cite these as sources.</p>
+        </div>
+      </div>
+
+      <div class="howto reveal">
+        <div class="howto-step"><span>01</span><p><b>Find the file ID.</b> Blue Book uses microfilm roll numbers; PURSUE uses DOW-UAP-D### identifiers. A claim without an ID is a rumour.</p></div>
+        <div class="howto-step"><span>02</span><p><b>Open the issuing agency.</b> If the only copy is on a video channel or a PDF aggregator, treat it as unverified until you find the archive record.</p></div>
+        <div class="howto-step"><span>03</span><p><b>Read the caution, not the caption.</b> “Unresolved” means insufficient data. “Unidentified” is a filing category, not a conclusion.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button class="jump-search" id="jumpSearch" type="button">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+  Search archive <kbd>Ctrl K</kbd>
+</button>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-note">
+      <b>Declassified Encounters</b> is an independent index. It links to primary sources and adds no claim of its own.
+      Nothing here establishes non-human intelligence. <b>Updated 23 October 2026.</b>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.war.gov/UFO/" target="_blank" rel="noopener">PURSUE</a>
+      <a href="https://www.archives.gov/research/military/air-force/ufos" target="_blank" rel="noopener">NARA</a>
+      <a href="https://www.cia.gov/readingroom/" target="_blank" rel="noopener">CIA</a>
+      <a href="https://vault.fbi.gov/UFO" target="_blank" rel="noopener">FBI</a>
+      <a href="https://www.cnes-geipan.fr/" target="_blank" rel="noopener">GEIPAN</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ DRAWER ============ -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-head">
+    <div style="min-width:0">
+      <span class="badge" id="drawerBadge"><i></i> <span></span></span>
+      <h2 class="drawer-title" id="drawerTitle"></h2>
+      <div class="drawer-sub" id="drawerSub"></div>
+    </div>
+    <button class="btn-close" id="closeDrawer" type="button" aria-label="Close record">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script src="data/collections.js"></script>
+<script src="data/documents.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
